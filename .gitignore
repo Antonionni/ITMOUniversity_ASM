@@ -1,0 +1,5 @@
+tasks
+*.odt
+*.pdf
+*.o
+**/otchet

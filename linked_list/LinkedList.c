@@ -54,10 +54,11 @@ int list_show(LinkedNode *node, const unsigned size) {
     }
 
     LinkedNode *tmp = node;
-    unsigned  count = 0;
-    while(tmp != NULL || count != size) {
+    if (list_length(tmp) < size) {
+        return -1;
+    }
+    for (unsigned i = 0; i < size; ++i) {
         printf("%d ", tmp->value);
-        count++;
         tmp = tmp->next;
     }
     printf("\n");

@@ -24,14 +24,15 @@ int main(int argc, char *argv[]) {
             }
             fist_item = false;
         } else {
-            if (list_push_front(root, number) == -1) {
+            printf("info: push front value = %d \n", number);
+            if (list_push_front(&root, number) == -1) {
                 fprintf(stderr, "Can`t push item to list");
                 return -1;
             }
         }
         counter++;
     }
-    printf("%d \n", counter);
+    printf("items counter = %d \n", counter);
 
     if (list_show(root) == -1) {
         fprintf(stderr, "Can`t show items");

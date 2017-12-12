@@ -11,7 +11,7 @@ typedef struct Node {
 
 LinkedNode *list_create_node(const int value);
 int list_push_back(LinkedNode *node, const int value);
-int list_push_front(LinkedNode *node, const int value);
+int list_push_front(LinkedNode **node, const int value);
 int list_show(LinkedNode *node);
 int list_free(LinkedNode *node);
 

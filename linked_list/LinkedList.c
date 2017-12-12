@@ -76,3 +76,27 @@ int list_free(LinkedNode *node) {
     }
     printf("free items memory = %d", count);
 }
+
+int list_sum(LinkedNode *node) {
+    int sum = 0;
+    LinkedNode *tmp = node;
+    while(tmp) {
+        sum += tmp->value;
+        tmp = tmp->next;
+    }
+    return sum;
+}
+
+int list_length(LinkedNode *node) {
+    if (!node) {
+        fprintf(stderr, "list_length: Empty root node");
+        return -1;
+    }
+    int length = 0;
+    LinkedNode *tmp = node;
+    while(tmp) {
+        length++;
+        tmp = tmp->next;
+    }
+    return length;
+}

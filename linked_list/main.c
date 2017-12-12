@@ -39,6 +39,8 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    printf("List sum: %d \n", list_sum(root));
+
     if (list_free(root) == -1) {
         fprintf(stderr, "Can`t free list");
         return -1;

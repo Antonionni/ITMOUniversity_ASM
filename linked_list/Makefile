@@ -1,5 +1,5 @@
 TARGET = main
-FILENAME= main.c
+FILENAME= main.c LinkedList.c
 all: $(TARGET)
 $(TARGET).o: $(FILENAME)
 	gcc -c -o $(TARGET).o $(FILENAME)

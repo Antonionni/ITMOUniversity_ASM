@@ -3,3 +3,6 @@ tasks
 *.pdf
 *.o
 **/otchet
+**/.idea
+**/cmake-build-debug
+

@@ -1,9 +1,13 @@
 TARGET = main
-FILENAME= main.c LinkedList.c
+ADDED = LinkedList
 all: $(TARGET)
-$(TARGET).o: $(FILENAME)
-	gcc -c -o $(TARGET).o $(FILENAME)
-$(TARGET): $(TARGET).o
-	gcc -o $(TARGET) $(FILENAME)
+
+$(TARGET).o: $(TARGET).c
+	gcc -c -o $(TARGET).o $(TARGET).c
+$(ADDED).o: $(ADDED).c
+	gcc -c -o $(ADDED).o $(ADDED).c
+
+$(TARGET): $(TARGET).o $(ADDED).o
+	gcc -o $(TARGET) $(TARGET).o $(ADDED).o
 clean:
 	rm -rf *.o $(TARGET)

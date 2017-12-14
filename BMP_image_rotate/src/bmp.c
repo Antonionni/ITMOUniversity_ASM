@@ -57,7 +57,7 @@ write_error_code_t to_bmp(FILE* out, Image* const img) {
     const int padding = (4 - (img->width * sizeof(Pixel)) % 4) %4;
     unsigned char trash [padding];
 
-    unsigned long write_size = sizeof(Pixel) * img->width;
+    const unsigned long write_size = sizeof(Pixel) * img->width;
     for (unsigned coll = 0; coll < img->height; ++coll) {
         // write content
         if (fwrite(img->data[coll], write_size, 1, out) != 1) {

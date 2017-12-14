@@ -47,13 +47,17 @@ Image *rotate(Image* const source, unsigned angle) {
         data_image->data[row] = calloc(dest_width, sizeof(Pixel));
     }
 
+    Pixel white_pixel = { 255, 255, 255};
+
     // initialize
-    for (unsigned x = 0; x < dest_width; ++x) {
-        for (unsigned y = 0; y < dest_height; ++y) {
+    for (int y = 0; y < dest_height; ++y) {
+        for (int x = 0; x < dest_width; ++x) {
             int src_x = (int)((x + min_x)*cosine + (y + min_y) * sine);
             int src_y = (int)((y + min_y)*cosine - (x + min_x) * sine);
             if (src_x >= 0 && src_x < width && src_y >= 0 && src_y < height) {
-                data_image->data[x][y] = source->data[src_x][src_y];
+                data_image->data[y][x] = source->data[src_y][src_x];
+            } else {
+                data_image->data[y][x] = white_pixel;
             }
         }
     }
@@ -70,3 +74,75 @@ void write_pixel_to_file(Image *const source) {
         fprintf(file, "\n");
     }
 }
+
+void free_image(Image *source) {
+    for (unsigned i = 0; i < source->height; ++i) {
+        free(source->data[i]);
+    }
+    free(source->data);
+    free(source);
+}
+
+void copy_image(Image *source, Image *target) {
+    for (int row = 0; row < source->height; row++) {
+        for (int coll = 0; coll < source->width; coll) {
+            target->data[row][coll] = source->data[row][coll];
+        }
+    }
+}
+
+// gaussian blur
+
+int *boxes_for_gauss(double sigma, int n) {
+    double w_ideal = sqrt((12 * sigma * sigma / n) + 1);
+    int wl = (int)floor(w_ideal);
+    if (wl % 2 == 0) wl--;
+
+    int wu = wl + 2;
+
+    double m_ideal = (12 * sigma * sigma - n * wl * wl - 4 * n * wl - 3 * n) / (-4 * wl - 4);
+    int m = round(m_ideal);
+
+    int *sizes = calloc(n, sizeof(int));
+    for (int i = 0; i < n; i++) {
+        sizes[i] = i < m ? wl : wu;
+    }
+    return sizes;
+}
+
+void box_blur_h(Image **source, Image **target, int w, int h, int radius) {
+
+}
+
+void box_blur_t(Image **source, Image **target, int w, int h, int radius) {
+
+}
+
+void box_blur(Image **source, Image **target, int w, int h, int radius) {
+
+}
+
+Image *gaussian_blur(Image *source, double radius) {
+    int width = source->width;
+    int height = source->height;
+    // allocate image
+    Image *target = malloc(sizeof(Image));
+
+    target->width = width;
+    target->height = height;
+
+    target->data = calloc(height, sizeof(Pixel*));
+    for (int row = 0; row < height; row++) {
+        target->data[row] = calloc(width, sizeof(Pixel));
+    }
+
+    int *bxs = boxes_for_gauss(radius, 3);
+    box_blur(source, target, width, height, (bxs[0] - 1) / 2);
+    box_blur(target, source, width, height, (bxs[1] - 1) / 2);
+    box_blur(source, target, width, height, (bxs[2] - 1) / 2);
+
+    //free momory
+    free(bxs);
+    return target;
+}
+

@@ -16,5 +16,5 @@ typedef struct image_t {
 } Image;
 
 void write_pixel_to_file(Image *const source);
-Image *rotate(Image* const source);
+Image *rotate(Image* const source, unsigned angle);
 #endif //BMP_IMAGE_ROTATE_IMAGE_H

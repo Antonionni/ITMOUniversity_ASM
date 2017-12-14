@@ -8,3 +8,4 @@ file(GLOB SRC "src/*.c")
 include_directories(include/)
 
 add_executable(BMP_image_rotate ${SRC} ${LIBS} include/image.h src/image.c)
+target_link_libraries(BMP_image_rotate m)

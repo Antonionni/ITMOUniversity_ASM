@@ -30,13 +30,19 @@ int main(int argc, char *argv[]) {
 
     write_pixel_to_file(current_image);
 
-    FILE *file_out = fopen("new_small.bmp", "wb");
+    FILE *file_out = fopen("small_test.bmp", "wb");
     if (!file_out) {
         fprintf(stderr, "Can`t open file to write");
         return -1;
     }
 
-    write_error_code_t write_code = to_bmp(file_out, current_image);
+    Image *result = rotate(current_image, 90);
+    if (!result) {
+        fprintf(stderr, "Can`t rotate image");
+        return -1;
+    }
+
+    write_error_code_t write_code = to_bmp(file_out, result);
 
     switch (write_code) {
         case WRITE_ERROR:

@@ -43,6 +43,10 @@ int main(int argc, char *argv[]) {
     scanf("%c", &chouse);
     if (chouse == 'y') {
         target = gaussian_blur(current_image, 30);
+        if (!target) {
+            fprintf(stderr, "Can`t blur image");
+            return -1;
+        }
     }
 
     unsigned angle = 0;

@@ -18,15 +18,10 @@ typedef struct image_t {
 // rotate image
 Image *rotate(Image* const source, unsigned angle);
 
-// gaussian blur
-int *boxes_for_gauss(double sigma, int n);
-void box_blur_h(Image **source, Image **target, int w, int h, int radius);
-void box_blur_t(Image **source, Image **target, int w, int h, int radius);
-void box_blur(Image **source, Image **target, int w, int h, int radius);
-Image *gaussian_blur(Image *source, double radius);
-
 // common
 void write_pixel_to_file(Image *const source);
+Pixel get_pixel(Image *source, int index);
+void set_pixel(Image *source, int index, int r, int g, int b);
 void copy_image(Image *source, Image *target);
 void free_image(Image *source);
 #endif //BMP_IMAGE_ROTATE_IMAGE_H

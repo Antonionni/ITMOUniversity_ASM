@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "bmp.h"
-
+#include "blur.h"
 
 int main(int argc, char *argv[]) {
     FILE *file_in = fopen("big.bmp", "rb");
@@ -35,13 +35,23 @@ int main(int argc, char *argv[]) {
     // debugger
     write_pixel_to_file(current_image);
 
+    Image *target = current_image;
+    unsigned char chouse = 'n';
+    puts("Do you want blur image? y/n:");
+    fflush(stdout);
+
+    scanf("%c", &chouse);
+    if (chouse == 'y') {
+        target = gaussian_blur(current_image, 30);
+    }
+
     unsigned angle = 0;
     puts("Please, write the angle of image rotate:");
     fflush(stdout);
 
     scanf("%d", &angle);
 
-    Image *result = rotate(current_image, 10);
+    Image *result = rotate(target, angle);
     if (!result) {
         fprintf(stderr, "Can`t rotate image");
         return -1;
